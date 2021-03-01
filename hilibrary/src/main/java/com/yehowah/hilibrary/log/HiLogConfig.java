@@ -9,12 +9,13 @@ public abstract class HiLogConfig {
     static int MAX_LEN = 512;//日志显示每一行最大字节数
     static HiThreadFormatter HI_THREAD_FORMATTER = new HiThreadFormatter();
     static HiStackTraceFormatter HI_STACK_TRACE_FORMATTER = new HiStackTraceFormatter();
-    public String getGlobalTag(){
-        return "HiLog";
+
+    public String getGlobalTag() {
+        return "HiLog";//如果不设置就是用这个作为全局的
     }
 
     //默认是启动的
-    public boolean enable(){
+    public boolean enable() {
         return true;
     }
 
@@ -33,7 +34,7 @@ public abstract class HiLogConfig {
     }
 
     //解耦，将序列号交给实现类进行解析
-    public interface JsonParser{
+    public interface JsonParser {
         String toJson(Object src);
     }
 }

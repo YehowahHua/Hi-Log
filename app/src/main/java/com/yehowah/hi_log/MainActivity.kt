@@ -11,7 +11,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.go_log_activity_btn).setOnClickListener {
-
             startActivity( Intent(this,HiLogDemoActivity::class.java))
         }
 

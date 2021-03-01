@@ -34,6 +34,7 @@ public class HiLogManager {
     }
 
 
+    //初始化
     public static void init(@NonNull HiLogConfig config, HiLogPrinter... printers) {
 //        Log.i("TAG", "init: printers--"+printers);
         instance = new HiLogManager(config, printers);
