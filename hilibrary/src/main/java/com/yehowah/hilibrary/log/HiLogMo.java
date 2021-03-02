@@ -1,7 +1,5 @@
 package com.yehowah.hilibrary.log;
 
-import android.icu.text.UFormat;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -25,8 +23,8 @@ public class HiLogMo {
         this.log = log;
     }
 
-
-    public String flattendLog() {
+    //拼接上log
+    public String flattenedLog() {
         return getFlattened() + "\n" + log;
     }
 

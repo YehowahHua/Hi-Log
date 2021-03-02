@@ -10,12 +10,17 @@ public abstract class HiLogConfig {
     static HiThreadFormatter HI_THREAD_FORMATTER = new HiThreadFormatter();
     static HiStackTraceFormatter HI_STACK_TRACE_FORMATTER = new HiStackTraceFormatter();
 
-    public String getGlobalTag() {
-        return "HiLog";//如果不设置就是用这个作为全局的
+    //Json序列化数据的注入
+    public JsonParser injectJsonParser(){
+        return null;
+    }
+
+    public String getGlobalTag(){
+        return "HiLog";
     }
 
     //默认是启动的
-    public boolean enable() {
+    public boolean enable(){
         return true;
     }
 
@@ -29,12 +34,13 @@ public abstract class HiLogConfig {
         return 5;
     }
 
+    //用户注册打印器
     public HiLogPrinter[] printers() {
         return null;
     }
 
-    //解耦，将序列号交给实现类进行解析
-    public interface JsonParser {
+    //解耦[不需要使用工具]，将序列号交给实现类进行解析
+    public interface JsonParser{
         String toJson(Object src);
     }
 }

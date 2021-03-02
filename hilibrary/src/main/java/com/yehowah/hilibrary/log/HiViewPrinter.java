@@ -55,6 +55,8 @@ public class HiViewPrinter implements HiLogPrinter {
     public void print(@NotNull HiLogConfig config, int level, String tag, @NotNull String printString) {
         //将log展示添加到recycleView中
         adapter.addItem(new HiLogMo(System.currentTimeMillis(), level, tag, printString));
+        //滚到对应的位置
+        recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
     }
 
     public static class LogAdapter extends RecyclerView.Adapter<LogViewHolder> {
@@ -69,7 +71,7 @@ public class HiViewPrinter implements HiLogPrinter {
 
         void addItem(HiLogMo logItem) {
             logs.add(logItem);
-            //数据绑定
+            //通知刷新
             notifyItemInserted(logs.size() - 1);
         }
 
@@ -85,7 +87,7 @@ public class HiViewPrinter implements HiLogPrinter {
         public void onBindViewHolder(@NonNull LogViewHolder holder, int position) {
             HiLogMo logItem = logs.get(position);
             int color = getHighlightColor(logItem.level);
-
+            //数据绑定
             holder.tagView.setTextColor(color);
             holder.messageView.setTextColor(color);
             holder.tagView.setText(logItem.getFlattened());
@@ -128,7 +130,7 @@ public class HiViewPrinter implements HiLogPrinter {
 
         @Override
         public int getItemCount() {
-            return 0;
+            return logs.size();
         }
     }
 

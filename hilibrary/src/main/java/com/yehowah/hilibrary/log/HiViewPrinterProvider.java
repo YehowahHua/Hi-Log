@@ -50,7 +50,7 @@ public class HiViewPrinterProvider {
         floatingView.setAlpha(0.8f);
         params.bottomMargin = HiDisplayUtil.dp2px(100, recyclerView.getResources());
         //添加到rootView中
-        rootView.addView(genFloatingView(),params);
+        rootView.addView(genFloatingView(), params);
     }
 
     /**
@@ -80,10 +80,9 @@ public class HiViewPrinterProvider {
     }
 
     /**
-     *
+     * 显示LogView
      */
     private void showLogView() {
-        //显示LogView
         if (rootView.findViewWithTag(TAG_LOG_VIEW) != null) {
             return;
         }
@@ -93,8 +92,9 @@ public class HiViewPrinterProvider {
         params.gravity = Gravity.BOTTOM;
         View logView = genLogView();
 
+        //设置Tag
         logView.setTag(TAG_LOG_VIEW);
-        rootView.addView(genLogView(),params);
+        rootView.addView(genLogView(), params);
         isOpen = true;
     }
 
@@ -104,7 +104,7 @@ public class HiViewPrinterProvider {
         }
 
         FrameLayout logView = new FrameLayout(rootView.getContext());
-        logView.setBackgroundColor(Color.BLACK);
+        logView.setBackgroundColor(Color.BLACK);//黑色背景
         logView.addView(recyclerView);
         //设置关闭按钮，位于屏幕右上角
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
