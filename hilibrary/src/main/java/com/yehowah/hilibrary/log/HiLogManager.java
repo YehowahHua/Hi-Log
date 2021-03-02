@@ -1,7 +1,5 @@
 package com.yehowah.hilibrary.log;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class HiLogManager {
 
     private HiLogManager(HiLogConfig config, HiLogPrinter[] printers) {
         this.config = config;
-        this.printers.addAll(Arrays.asList(printers));
+        this.printers.addAll(Arrays.asList(printers));//数组-->ArrayList
     }
 
 
@@ -42,4 +40,24 @@ public class HiLogManager {
     public HiLogConfig getConfig() {
         return config;
     }
+
+    public List<HiLogPrinter> getPrinters() {
+        return printers;
+    }
+
+    //手动添加打印器
+    public void addPrinter(HiLogPrinter printer){
+        printers.add(printer);
+    }
+
+    public void removePrinter(HiLogPrinter printer){
+        if (printers != null){
+            printers.remove(printer);
+        }
+    }
+
+
+
+
+
 }
