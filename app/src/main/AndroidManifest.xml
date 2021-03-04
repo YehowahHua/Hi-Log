@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yehowah.hi_log">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -13,21 +14,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HiLog">
+        android:theme="@style/Theme.HiLog"
+        tools:ignore="AllowBackup">
         <activity
             android:name=".demo.tab.HiTabBottomDemoActivity">
         </activity>
 
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="true" />
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
+
+
 
         <activity android:name=".demo.HiLogDemoActivity" />
         <activity android:name=".MainActivity">

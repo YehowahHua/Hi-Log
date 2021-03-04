@@ -2,6 +2,12 @@
     <string name="app_name">Hi-Log</string>
 
     <string name="if_name">&#xe8c6;</string>
+    <string name="if_recommend">&#xe63f;</string>
+    <string name="if_chat">&#xe63c;</string>
+    <string name="if_profile">&#xe634;</string>
+    <string name="if_category">&#xf00a6;</string>
+    <string name="if_favorite">&#xe639;</string>
+
     <string name="title_activity_hi_tab_bottom_demo">HiTabBottomDemoActivity</string>
     <!--
     This string is used for square devices and overridden by hello_world in

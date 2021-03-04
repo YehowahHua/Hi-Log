@@ -33,10 +33,14 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
 
     private static final String TAG_TAB_BOTTOM = "TAG_TAB_BOTTOM";
 
-    private float bottomAlpha = 1f;
+    private float bottomAlpha = 1f;//默认不透明
 
     //TabBottom的高度
     private static float tabBottomHeight = 50;
+    //TabBottom的头部线条高度
+    private float bottomLineHeight = 0.5f;
+    //TabBottom的头部线条颜色
+    private String bottomLineColor = "#dfe0e1";
 
     public void setTabAlpha(float alpha) {
         this.bottomAlpha = alpha;
@@ -53,12 +57,6 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
     public void setBottomLineColor(String bottomLineColor) {
         this.bottomLineColor = bottomLineColor;
     }
-
-    //TabBottom的头部线条高度
-    private float bottomLineHeight = 0.5f;
-    //TabBottom的头部线条颜色
-    private String bottomLineColor = "#dfe0e1";
-
 
     public HiTabBottomLayout(@NonNull Context context) {
         this(context, null);
@@ -99,6 +97,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         onSelected(defaultInfo);
     }
 
+    //填充数据
     @Override
     public void inflateInfo(@NonNull List<HiTabBottomInfo<?>> infoList) {
         if (infoList.isEmpty()) {
@@ -114,7 +113,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
 
         addBackground();//添加背景
 
-        //清除之前添加的HiTabBottom listener ,使用Java foreach会出错,删除顺序问题
+        //清除之前添加的HiTabBottom listener ,使用Java foreach会出错,既遍历又删除的问题
         Iterator<OnTabSelectedListener<HiTabBottomInfo<?>>> iterator = tabSelectedChangeListener.iterator();
         while (iterator.hasNext()) {
             if (iterator.next() instanceof HiTabBottom) {
@@ -131,7 +130,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         for (int i = 0; i < infoList.size(); i++) {
             HiTabBottomInfo<?> info = infoList.get(i);
             LayoutParams params = new LayoutParams(width, height);
-            params.gravity = Gravity.BOTTOM;
+            params.gravity = Gravity.BOTTOM;//注意
             params.leftMargin = i * width;//依次向右
 
             HiTabBottom tabBottom = new HiTabBottom(getContext());
@@ -150,9 +149,11 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         flParams.gravity = Gravity.BOTTOM;
         addBottomLine();
         addView(ll, flParams);
+
+
     }
 
-    //添加线
+    //添加线，底部tab上
     private void addBottomLine() {
         View bottomLine = new View(getContext());
         bottomLine.setBackgroundColor(Color.parseColor(bottomLineColor));
@@ -179,5 +180,19 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         params.gravity = Gravity.BOTTOM;
         addView(view, params);
         view.setAlpha(bottomAlpha);
+    }
+
+    /**
+     * 修复内容区域的底部Padding
+     */
+    private void fixContentView(){
+        if (!(getChildAt(0) instanceof ViewGroup)){
+            //是一个单节点
+            return;
+        }
+
+        ViewGroup rootView = (ViewGroup) getChildAt(0);
+        //查找出列表
+
     }
 }
