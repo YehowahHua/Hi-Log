@@ -17,7 +17,7 @@ import com.yehowah.hilibrary.util.HiDisplayUtil;
  * Description:对ViewPrinter显示和隐藏
  **/
 public class HiViewPrinterProvider {
-    private FrameLayout rootView;
+    private final FrameLayout rootView;//放置recyclerView的容器
     private View floatingView;
     private boolean isOpen;
     private FrameLayout logView;
