@@ -7,12 +7,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.yehowah.hilibrary.util.HiDisplayUtil;
+import com.yehowah.hilibrary.util.HiViewUtil;
 import com.yehowah.hiui.R;
 import com.yehowah.hiui.tab.common.IHiTabLayout;
 
@@ -74,11 +78,11 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
     public HiTabBottom findTab(@NonNull HiTabBottomInfo<?> info) {
         //从FrameLayout找
         ViewGroup ll = findViewWithTag(TAG_TAB_BOTTOM);
-        for (int i = 0; i < ll.getChildCount() ; i++) {
+        for (int i = 0; i < ll.getChildCount(); i++) {
             View child = ll.getChildAt(i);
-            if(child instanceof HiTabBottom){
+            if (child instanceof HiTabBottom) {
                 HiTabBottom tab = (HiTabBottom) child;
-                if (tab.getHiTabInfo() == info){
+                if (tab.getHiTabInfo() == info) {
                     //找到
                     return tab;
                 }
@@ -126,7 +130,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         ll.setTag(TAG_TAB_BOTTOM);
         //获取每个宽度,高度
         int height = HiDisplayUtil.dp2px(tabBottomHeight, getResources());
-        int width = HiDisplayUtil.getDisplayHeightInPx(getContext()) / infoList.size();
+        int width = HiDisplayUtil.getDisplayWidthInPx(getContext()) / infoList.size();
         for (int i = 0; i < infoList.size(); i++) {
             HiTabBottomInfo<?> info = infoList.get(i);
             LayoutParams params = new LayoutParams(width, height);
@@ -149,7 +153,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         flParams.gravity = Gravity.BOTTOM;
         addBottomLine();
         addView(ll, flParams);
-
+        fixContentView();
 
     }
 
@@ -185,14 +189,27 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
     /**
      * 修复内容区域的底部Padding
      */
-    private void fixContentView(){
-        if (!(getChildAt(0) instanceof ViewGroup)){
+    private void fixContentView() {
+        if (!(getChildAt(0) instanceof ViewGroup)) {
             //是一个单节点
             return;
         }
 
         ViewGroup rootView = (ViewGroup) getChildAt(0);
-        //查找出列表
+        //查找出列表RecyclerView
+        ViewGroup targetView = HiViewUtil.findTypeView(rootView, RecyclerView.class);
+        if (targetView == null) {
+            targetView = HiViewUtil.findTypeView(rootView, ScrollView.class);
+        }
+        if (targetView == null) {
+            targetView = HiViewUtil.findTypeView(rootView, AbsListView.class);
+        }
+
+        if (targetView != null) {
+            //向上移动tabBottomHeight
+            targetView.setPadding(0, 0, 0, HiDisplayUtil.dp2px(tabBottomHeight, getResources()));
+            targetView.setClipToPadding(false);
+        }
 
     }
 }

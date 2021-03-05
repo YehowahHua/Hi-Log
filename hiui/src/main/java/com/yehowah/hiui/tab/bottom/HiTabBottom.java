@@ -104,8 +104,8 @@ public class HiTabBottom extends RelativeLayout implements IHiTab<HiTabBottomInf
             if (init) {
                 tabImageView.setVisibility(VISIBLE);
                 tabIconView.setVisibility(GONE);
-                Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), tabInfo.iconFont);
-                tabIconView.setTypeface(typeface);
+//                Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), tabInfo.iconFont);
+//                tabIconView.setTypeface(typeface);
                 if (!TextUtils.isEmpty(tabInfo.name)) {
                     tabNameView.setText(tabInfo.name);
                 }
@@ -128,7 +128,7 @@ public class HiTabBottom extends RelativeLayout implements IHiTab<HiTabBottomInf
         ViewGroup.LayoutParams layoutParams = getLayoutParams();
         layoutParams.height = height;
         setLayoutParams(layoutParams);
-        getTabImageView().setVisibility(GONE);
+        getTabNameView().setVisibility(GONE);
     }
 
     @Override

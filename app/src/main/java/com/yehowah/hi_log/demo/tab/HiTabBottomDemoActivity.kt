@@ -1,9 +1,11 @@
 package com.yehowah.hi_log.demo.tab
 
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.yehowah.hi_log.R
+import com.yehowah.hilibrary.util.HiDisplayUtil
 import com.yehowah.hiui.tab.bottom.HiTabBottom
 import com.yehowah.hiui.tab.bottom.HiTabBottomInfo
 import com.yehowah.hiui.tab.bottom.HiTabBottomLayout
@@ -41,15 +43,21 @@ class HiTabBottomDemoActivity : AppCompatActivity() {
             "#ff656667",
             "#ffd44949"
         )
-        val infoCategory = HiTabBottomInfo(
-            "分类",
-            "fonts/iconfont.ttf",
-            getString(R.string.if_category),
-            null,
-            "#ff656667",
-            "#ffd44949"
-        )
+//        val infoCategory = HiTabBottomInfo(
+//            "分类",
+//            "fonts/iconfont.ttf",
+//            getString(R.string.if_category),
+//            null,
+//            "#ff656667",
+//            "#ffd44949"
+//        )
 
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.fire, null)
+        val infoCategory = HiTabBottomInfo<String>(
+            "分类",
+            bitmap,
+            bitmap
+        )
         val infoChat = HiTabBottomInfo(
             "推荐",
             "fonts/iconfont.ttf",
@@ -77,5 +85,11 @@ class HiTabBottomDemoActivity : AppCompatActivity() {
             Toast.makeText(this@HiTabBottomDemoActivity, nextInfo.name, Toast.LENGTH_SHORT).show()
         }
         hiTabBottomLayout.defaultSelected(homeInfo)
+
+        //改变某个元素高度
+        val tabBottom = hiTabBottomLayout.findTab(bottomInfoList[2])
+        tabBottom?.apply {
+            resetHeight(HiDisplayUtil.dp2px(66f,resources))
+        }
     }
 }
