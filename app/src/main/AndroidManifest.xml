@@ -16,13 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HiLog"
         tools:ignore="AllowBackup">
-        <activity
-            android:name=".demo.tab.HiTabBottomDemoActivity">
-        </activity>
-
-
-
-
+        <activity android:name=".demo.tab.HiTabTopDemoActivity"></activity>
+        <activity android:name=".demo.tab.HiTabBottomDemoActivity"></activity>
         <activity android:name=".demo.HiLogDemoActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

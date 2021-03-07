@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.yehowah.hi_log.demo.HiLogDemoActivity
 import com.yehowah.hi_log.demo.tab.HiTabBottomDemoActivity
+import com.yehowah.hi_log.demo.tab.HiTabTopDemoActivity
 import com.yehowah.hiui.tab.bottom.HiTabBottom
 import com.yehowah.hiui.tab.bottom.HiTabBottomInfo
 
@@ -25,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.go_tab_activity_btn).setOnClickListener {
             startActivity( Intent(this, HiTabBottomDemoActivity::class.java))
+        }
+        findViewById<Button>(R.id.go_top_activity_btn).setOnClickListener {
+            startActivity( Intent(this, HiTabTopDemoActivity::class.java))
         }
     }
 
