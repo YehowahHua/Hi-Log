@@ -25,18 +25,4 @@ public interface IHiTabLayout<Tab extends ViewGroup, D> {
         void onTabSelectedChange(int index, @Nullable D prevInfo, @NonNull D nextInfo);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

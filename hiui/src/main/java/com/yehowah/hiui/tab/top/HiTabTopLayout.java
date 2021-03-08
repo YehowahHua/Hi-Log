@@ -3,6 +3,7 @@ package com.yehowah.hiui.tab.top;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
@@ -11,8 +12,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 
 import com.yehowah.hilibrary.util.HiDisplayUtil;
-import com.yehowah.hiui.tab.bottom.HiTabBottom;
-import com.yehowah.hiui.tab.bottom.HiTabBottomInfo;
 import com.yehowah.hiui.tab.common.IHiTabLayout;
 
 import java.util.ArrayList;
@@ -157,23 +156,29 @@ public class HiTabTopLayout extends HorizontalScrollView implements IHiTabLayout
             tabWidth = tabTop.getWidth();
         }
 
+        Log.i("0001", "autoScroll: tabWidth--" + tabWidth + " index--" + index + ",loc[0] = " + loc[0]);//150,2 205
+//        Log.i("0001", "autoScroll: 屏幕宽度=" + (HiDisplayUtil.getDisplayWidthInPx(getContext()) / 2));//540
+
         //判断点击了屏幕左侧还是右侧
         if ((loc[0] + tabWidth / 2) > HiDisplayUtil.getDisplayWidthInPx(getContext()) / 2) {
+//            Log.i("0001", "autoScroll: range大于0 右侧");
             //右侧找2个元素
             scrollWidth = rangeScrollWidth(index, 2);
         } else {
+//            Log.i("0001", "autoScroll: range小于0 左侧");//
             //左侧找2个元素
             scrollWidth = rangeScrollWidth(index, -2);
         }
 
+//        Log.e("0001", "autoScroll: getScrollX()=" + getScrollX() + "," + scrollWidth);//91
         scrollTo(getScrollX() + scrollWidth, 0);
+//        scrollTo(0, 0);
 
     }
 
 
     /**
      * 获取可滚动的范围
-     *
      * @param index 从第几个开始
      * @param range 向前向后的范围
      * @return 可滚动的范围
@@ -183,7 +188,7 @@ public class HiTabTopLayout extends HorizontalScrollView implements IHiTabLayout
         for (int i = 0; i <= Math.abs(range); i++) {
             int next;
             if (range < 0) {
-                next = range + i + index;
+                next = range + i + index;//-2+[]+2
             } else {
                 next = range - i + index;
             }
@@ -191,8 +196,10 @@ public class HiTabTopLayout extends HorizontalScrollView implements IHiTabLayout
             if (next >= 0 && next < infoList.size()) {
                 if (range < 0) {
                     scrollWidth -= scrollWidth(next, false);
+//                    Log.d("0001", "rangeScrollWidth: range=" + range + " next=" + next+","+scrollWidth);
                 } else {
                     scrollWidth += scrollWidth(next, true);
+//                    Log.d("0001", "rangeScrollWidth: range=" + range + " next=" + next+","+scrollWidth);//-2 0
                 }
             }
         }
@@ -215,6 +222,7 @@ public class HiTabTopLayout extends HorizontalScrollView implements IHiTabLayout
 
         Rect rect = new Rect();
         target.getLocalVisibleRect(rect);//矩形，判断是否可见
+//        Log.i("0001", "指定控件==>"+index+",scrollWidth: rect.right=" + rect.right+", rect.left="+rect.left);//
         if (toRight) {//点击屏幕右侧
             if (rect.right > tabWidth) {//right坐标大于控件的宽度，说明完全没有显示
                 return tabWidth;
@@ -223,8 +231,10 @@ public class HiTabTopLayout extends HorizontalScrollView implements IHiTabLayout
             }
         } else {
             if (rect.left <= -tabWidth) { //left坐标小于等于-控件的宽度，说明完全没有显示
+//                Log.i("0001", "指定位置scrollWidth: left坐标小于等于-控件的宽度，说明完全没有显示+rect.left=" + rect.left);
                 return tabWidth;
             } else if (rect.left > 0) {//显示部分
+//                Log.i("0001", "指定位置scrollWidth: 显示部分+rect.left=" + rect.left);//91
                 return rect.left;
             }
             return 0;
